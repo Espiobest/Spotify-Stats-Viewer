@@ -1,5 +1,6 @@
 import React from 'react';
 import { NextPage } from 'next';
+import '../app/globals.css'
 
 
 const clientId = process.env.SPOTIFY_CLIENT_ID;

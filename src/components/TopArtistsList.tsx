@@ -14,7 +14,7 @@ interface TopArtistsListProps {
 
 const TopArtistsList: React.FC<TopArtistsListProps> = ({ artists }) => {
     return (
-        <div className="mb-8">
+        <div className="mb-8" style={{'backgroundColor': '#121212'}}>
             <h2 className="text-2xl font-semibold mb-4">Top Artists</h2>
             <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {artists.map((artist: Artist) => (
@@ -23,7 +23,7 @@ const TopArtistsList: React.FC<TopArtistsListProps> = ({ artists }) => {
                         <div>
                             <p className="text-lg font-medium">{artist.name}</p>
                             <p className="text-sm text-gray-400">
-                                {artist.genres.slice(0, 2).join(', ')}
+                                {artist.genres.slice(0, 2).map(s=>s.charAt(0).toUpperCase() + s.slice(1)).join(', ')}
                             </p>
                         </div>
                     </li>
