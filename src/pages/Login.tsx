@@ -10,15 +10,13 @@ const Login: NextPage = () => {
     const handleLogin = () => {
         
         const scopes = [
-            'user-read-private',
             'user-read-currently-playing',
             'user-top-read',
             'user-library-read',
-            // Add other scopes as needed
+            'user-follow-read',
+            'user-follow-modify',
         ];
         const authUrl = `https://accounts.spotify.com/authorize?response_type=code&client_id=${clientId}&scope=${scopes.join('%20')}&redirect_uri=${redirectUri}`;
-
-        // const authUrl = `https://accounts.spotify.com/authorize?response_type=token&client_id=${clientId}&scope=${scopes.join('%20')}&redirect_uri=${redirectUri}`;
 
         window.location.href = authUrl;
     };

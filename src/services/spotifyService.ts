@@ -21,9 +21,12 @@ export const fetchSpotifyData = async (endpoint: string) => {
                 'Content-Type': 'application/json'
             }
         });
-
         if (!response.ok) {
             throw new Error('Failed to fetch data');
+        }
+
+        if (response.status === 204) {
+            return {};
         }
 
         const data = await response.json();
@@ -36,6 +39,7 @@ export const fetchSpotifyData = async (endpoint: string) => {
 const refreshAccessToken = async () => {
     const refreshToken = localStorage.getItem('refresh_token');
     const clientId = process.env.SPOTIFY_CLIENT_ID;
+    const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
 
     if (!refreshToken) {
         console.error("Refresh token is missing");
@@ -52,7 +56,7 @@ const refreshAccessToken = async () => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
-                'Authorization': `Basic ${btoa(`${clientId}:db67f0b79bab47b7b5d2f4d2a4e6cf30`)}`
+                'Authorization': `Basic ${btoa(`${clientId}:${clientSecret}`)}`,
             },
             body: new URLSearchParams({
                 grant_type: 'refresh_token',
@@ -79,3 +83,10 @@ const refreshAccessToken = async () => {
     }
 
 };
+
+export const handleLogout = () => {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('expiry');
+    localStorage.removeItem('refresh_token');
+    window.location.href = '/login';
+}

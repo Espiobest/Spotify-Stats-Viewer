@@ -13,7 +13,9 @@ const Callback: React.FC = () => {
         const { code } = router.query;
         if (!code) {
             console.error('No code found in query string');
+            console.log("not found");
             router.push('/login');
+            return;
         }
 
         fetch('https://accounts.spotify.com/api/token', {
@@ -45,7 +47,7 @@ const Callback: React.FC = () => {
             console.error('Error fetching token:', error);
             router.push('/login');
         });
-    }, [router]);
+    }, [router, redirectUri]);
 
     return (
         <div>

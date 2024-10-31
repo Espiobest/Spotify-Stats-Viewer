@@ -1,12 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-
-interface Artist {
-    id: string;
-    name: string;
-    genres: string[];
-    images: { url: string }[];
-}
+import { Artist } from '../types/spotify';
 
 interface TopArtistsListProps {
     artists: Artist[];
@@ -14,8 +8,8 @@ interface TopArtistsListProps {
 
 const TopArtistsList: React.FC<TopArtistsListProps> = ({ artists }) => {
     return (
-        <div className="mb-8" style={{'backgroundColor': '#121212'}}>
-            <h2 className="text-2xl font-semibold mb-4">Top Artists</h2>
+        <div className="mb-8 p-4" style={{'backgroundColor': '#121212'}}>
+            <h3 className="text-white text-3xl font-bold mb-4 text-center">Your Top Artists</h3>
             <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {artists.map((artist: Artist) => (
                     <li key={artist.id} className="flex items-center">
