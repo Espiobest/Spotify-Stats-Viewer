@@ -7,22 +7,21 @@ import Image from "next/image";
 import Navbar from "../../components/Navbar";
 import { fetchSpotifyData } from "../../services/spotifyService";
 import { capitalize, formatTime } from "../../utils/utils";
+import { Track, Artist, Album, UserProfile} from "../../types/spotify";
 
 import '../../app/globals.css';
 
 const ArtistPage: React.FC = () => {
     const router = useRouter();
-    const [artistData, setArtistData] = useState<any>(null);
-    const [artistTopTracks, setArtistTopTracks] = useState<any>(null);
-    const [artistAlbums, setArtistAlbums] = useState<any>(null);
-    const [userData, setUserData] = useState<any>(null);
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+    const [artistData, setArtistData] = useState<Artist | null>(null);
+    const [artistTopTracks, setArtistTopTracks] = useState<Track[]>([]);
+    const [artistAlbums, setArtistAlbums] = useState<Album[]>([]);
+    const [userData, setUserData] = useState<UserProfile | null>(null);
     const { id } = router.query;
 
     useEffect(() => {
         
         const isAuthenticated = !!localStorage.getItem('access_token');
-        setIsAuthenticated(isAuthenticated);
         
         if (!isAuthenticated) {
             window.location.href = '/login';
@@ -63,7 +62,7 @@ const ArtistPage: React.FC = () => {
                 {artistData && (
                     <div className="p-4" style={{ backgroundColor: '#121212' }}>
                         <Link href={artistData.external_urls.spotify} target="_blank">
-                            <img
+                            <Image
                                 src={artistData.images[0].url}
                                 alt={artistData.name}
                                 className="rounded-full h-64 w-64 mx-auto mb-4"
@@ -95,7 +94,7 @@ const ArtistPage: React.FC = () => {
 
                         <h2 className="text-2xl font-bold text-white mb-4 text-center">Top Tracks</h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                            {artistTopTracks && artistTopTracks.map((track: any) => (
+                            {artistTopTracks && artistTopTracks.map((track: Track) => (
                                 <Link key={track.id} href={`/tracks/${track.id}`}>
                                     <div className="p-4 hover:bg-gray-800" style={{ height: '300px' }}>
                                         <Image
@@ -115,10 +114,10 @@ const ArtistPage: React.FC = () => {
 
                         <h2 className="text-2xl font-bold text-white mb-4 text-center p-4">Albums</h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                            {artistAlbums && artistAlbums.map((album: any) => (
+                            {artistAlbums && artistAlbums.map((album: Album) => (
                                 <Link key={album.id} href={`${album.external_urls.spotify}`} target="_blank">
                                     <div key={album.id} className="p-4 hover:bg-gray-800" style={{ height: '300px'  }}>
-                                        <img
+                                        <Image
                                             src={album.images[0].url}
                                             alt={album.name}
                                             className="rounded-lg h-48 w-48 mx-auto mb-4"
@@ -132,8 +131,8 @@ const ArtistPage: React.FC = () => {
                     </div>
                 )}
             </div>
-            </div>);
-                
+        </div>
+    );            
 }
 
 export default ArtistPage;

@@ -27,7 +27,7 @@ const TopArtistsList: React.FC<TopArtistsListProps> = ({ artists, showHeader=tru
                 </>
     }
 
-            <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-1">
                 {artists.map((artist: Artist) => (
                     <Link key={artist.id} href={`/artists/${artist.id}`}>
                         <li key={artist.id} className="flex items-center hover:bg-gray-800">

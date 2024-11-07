@@ -15,7 +15,12 @@ const NowPlaying: React.FC<NowPlayingProps> = ({ track }) => {
     useEffect(() => {
         if (!track || !track?.item) return;
         
-        nowPlayingTrack ? setProgress(nowPlayingTrack.progress_ms) : setProgress(track.progress_ms);
+        if (nowPlayingTrack) {
+            setProgress(nowPlayingTrack.progress_ms)
+        } 
+        else {
+            setProgress(track.progress_ms);
+        }
 
         const interval = setInterval(() => {
             setProgress((prevProgress) => {
@@ -39,7 +44,7 @@ const NowPlaying: React.FC<NowPlayingProps> = ({ track }) => {
         }, 1000);
 
         return () => clearInterval(interval);
-    }, [nowPlayingTrack]);
+    }, [nowPlayingTrack, track]);
 
     if (!nowPlayingTrack?.item) {
         return null;

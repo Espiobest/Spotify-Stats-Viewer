@@ -25,7 +25,7 @@ const TopTracksList: React.FC<TopTracksListProps> = ({ tracks , showHeader=true}
                 <br/>
                 </>
             }
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 items-center">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 items-center p-1">
                 {tracks.map((track) => (
                     <Link key={track.id} href={`/tracks/${track.id}`}>
                         <div className="p-4 hover:bg-gray-800">

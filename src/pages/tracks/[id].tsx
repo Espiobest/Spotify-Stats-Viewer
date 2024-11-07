@@ -5,22 +5,21 @@ import Image from "next/image";
 
 import Navbar from "../../components/Navbar";
 import { fetchSpotifyData } from "../../services/spotifyService";
-import { capitalize, formatTime, getKey } from "../../utils/utils";
+import { formatTime, getKey } from "../../utils/utils";
+import { Track, Artist, UserProfile, TrackFeatures } from "../../types/spotify";
 
 import '../../app/globals.css';
 
 const TrackPage: React.FC = () => {
     const router = useRouter();
-    const [trackData, setTrackData] = useState<any>(null);
-    const [trackFeatures, setTrackFeatures] = useState<any>(null);
-    const [userData, setUserData] = useState<any>(null);
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+    const [trackData, setTrackData] = useState<Track | null>(null);
+    const [trackFeatures, setTrackFeatures] = useState<TrackFeatures | null>(null);
+    const [userData, setUserData] = useState<UserProfile | null>(null);
     const { id } = router.query;
 
     useEffect(() => {
         
         const isAuthenticated = !!localStorage.getItem('access_token');
-        setIsAuthenticated(isAuthenticated);
         
         if (!isAuthenticated) {
             window.location.href = '/login';
@@ -36,7 +35,6 @@ const TrackPage: React.FC = () => {
         const fetchTrackData = async () => {
             const data = await fetchSpotifyData(`tracks/${id}`);
             setTrackData(data);
-            console.log(data)
         };
         const fetchTrackFeatures = async () => {
             const data = await fetchSpotifyData(`audio-features/${id}`);
@@ -66,7 +64,7 @@ const TrackPage: React.FC = () => {
                             />
                             <div className="ml-4">
                                 <h1 className="text-3xl font-bold text-white mb-4">{trackData.name}</h1>
-                                <p className="text-white font-bold">{trackData.artists.map((artist: any) => artist.name).join(', ')}</p>
+                                <p className="text-white font-bold">{trackData.artists.map((artist: Artist) => artist.name).join(', ')}</p>
                                 <p className="text-gray-400">{trackData.album.name}</p>
                                 <p className="text-gray-400">{trackData.album.release_date.split("-")[0]}</p>
                                 <p className="text-gray-400">{formatTime(trackData.duration_ms)}</p>
