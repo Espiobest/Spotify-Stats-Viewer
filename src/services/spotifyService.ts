@@ -22,7 +22,7 @@ export const fetchSpotifyData = async (endpoint: string) => {
             }
         });
         if (!response.ok) {
-            throw new Error('Failed to fetch data');
+            handleLogout();
         }
 
         if (response.status === 204) {
@@ -88,5 +88,6 @@ export const handleLogout = () => {
     localStorage.removeItem('access_token');
     localStorage.removeItem('expiry');
     localStorage.removeItem('refresh_token');
+    localStorage.removeItem('user');
     window.location.href = '/login';
 }

@@ -7,6 +7,13 @@ export interface Track {
     artists: { name: string }[];
     external_urls: { spotify: string };
     imageUrl: string;
+    duration_ms: number;
+}
+
+export interface NowPlayingTrack extends Track {
+    progress_ms: number;
+    item: Track;
+    duration_ms: number;
 }
 
 export interface Artist {

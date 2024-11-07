@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEffect } from 'react';
 import { NextPage } from 'next';
 import '../app/globals.css'
 
@@ -7,6 +8,13 @@ const clientId = process.env.SPOTIFY_CLIENT_ID;
 const redirectUri = process.env.SPOTIFY_REDIRECT_URI;
 
 const Login: NextPage = () => {
+
+    useEffect(() => {
+        if (localStorage.getItem('access_token')) {
+            window.location.href = '/dashboard';
+        }
+    }, []);
+
     const handleLogin = () => {
         
         const scopes = [

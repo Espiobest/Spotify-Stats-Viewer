@@ -2,40 +2,26 @@ import React from 'react';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { fetchSpotifyData } from '../services/spotifyService';
-
-interface Track {
-    id: string;
-    name: string;
-    artists: { name: string }[];
-    album: {
-        images: { url: string }[];
-    };
-    imageUrl: string;
-    duration_ms: number;
-}
+import { NowPlayingTrack } from '../types/spotify';
 
 interface NowPlayingProps {
-    track: {
-        item: Track | null
-        progress_ms: number
-    }; 
+    track: NowPlayingTrack | null;
 }
 
 const NowPlaying: React.FC<NowPlayingProps> = ({ track }) => {
-    if (!track || !track.item) {
-        return null; 
-    }
+    
 
-    let trackDetails = track.item;
+    let trackDetails = track?.item;
     const [progress, setProgress] = useState(0);
 
     useEffect(() => {
-        if (track) {
+        if (track && trackDetails) {
             setProgress(track.progress_ms);
 
             const interval = setInterval(() => {
-                setProgress(prev => (prev < trackDetails.duration_ms ? prev + 1000 : trackDetails.duration_ms));
+                setProgress(prev => (trackDetails && prev < trackDetails.duration_ms ? prev + 1000 : prev));
             }, 1000);
+
             if (progress === trackDetails.duration_ms) {
                 console.log('Track ended');
                 setProgress(0);
@@ -53,6 +39,10 @@ const NowPlaying: React.FC<NowPlayingProps> = ({ track }) => {
             
         }
     }, [track]);
+
+    if (!trackDetails) {
+        return null
+    }
 
     const progressPercentage = trackDetails ? (progress / trackDetails.duration_ms) * 100 : 0;
 
