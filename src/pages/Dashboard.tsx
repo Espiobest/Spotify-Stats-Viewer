@@ -51,8 +51,8 @@ const Dashboard: React.FC = () => {
             {userData && <Navbar userData={userData}/>}
             {userData && <UserProfileDetails userData={userData} />}
             {nowPlaying && <NowPlaying track={nowPlaying} />}
-            <TopTracksList tracks={topTracks} />
-            <TopArtistsList artists={topArtists} />
+            <TopTracksList tracks={topTracks} showHeader={true} />
+            <TopArtistsList artists={topArtists} showHeader={true} />
         </div>
     );
 };

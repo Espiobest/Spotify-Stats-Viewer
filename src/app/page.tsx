@@ -3,6 +3,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import Login from '../pages/login';
 import { useRouter } from 'next/navigation';
+import Head from 'next/head';
 
 
 const MainPage: React.FC = () => {
@@ -16,7 +17,14 @@ const MainPage: React.FC = () => {
       }
   }, [router, isAuthenticated]);
   return (
+    <>
+      <Head>
+          <title>Spotify Stats</title>
+          <meta name="description" content="Spotify Stats" />
+          <link rel="icon" href="../public/spotfiy-logo.png" />
+      </Head>
       <Login />
+    </>
   );
 };
 

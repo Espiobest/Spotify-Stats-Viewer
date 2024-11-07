@@ -46,12 +46,12 @@ const Callback: React.FC = () => {
                     router.push('/dashboard');
                 }
                 catch (error) {
-                    console.error('Error saving token to local storage:', error);
+                    console.log('Error saving token to local storage:', error);
                     router.push('/login');
                 }
             })
             .catch((error) => {
-                console.error('Error fetching token:', error);
+                console.log('Error fetching token:', error);
                 router.push('/login');
             });
             setLoading(false);

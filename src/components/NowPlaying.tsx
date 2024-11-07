@@ -3,27 +3,29 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { fetchSpotifyData } from '../services/spotifyService';
 import { NowPlayingTrack } from '../types/spotify';
+import Link from 'next/link';
 
 interface NowPlayingProps {
     track: NowPlayingTrack | null;
 }
 
 const NowPlaying: React.FC<NowPlayingProps> = ({ track }) => {
-    
-
     let trackDetails = track?.item;
     const [progress, setProgress] = useState(0);
 
     useEffect(() => {
-        if (track && trackDetails) {
-            setProgress(track.progress_ms);
+        if (!track || !trackDetails) return;
+        setProgress(track.progress_ms);
 
-            const interval = setInterval(() => {
-                setProgress(prev => (trackDetails && prev < trackDetails.duration_ms ? prev + 1000 : prev));
-            }, 1000);
-
-            if (progress === trackDetails.duration_ms) {
-                console.log('Track ended');
+        const interval = setInterval(() => {
+            if (!track || !trackDetails) {
+                return;
+            }
+            if (track.progress_ms < trackDetails.duration_ms) {
+                setProgress(progress => progress + 1000);
+                console.log(progress, track.progress_ms, trackDetails.duration_ms);
+            }
+            else {
                 setProgress(0);
                 fetchSpotifyData('me/player/currently-playing')
                 .then(data => {
@@ -32,12 +34,12 @@ const NowPlaying: React.FC<NowPlayingProps> = ({ track }) => {
                         trackDetails = data.item;
                     }
                 });
-
             }
-
-            return () => clearInterval(interval);
             
-        }
+        }, 1000);
+
+        return () => clearInterval(interval);
+            
     }, [track]);
 
     if (!trackDetails) {
@@ -48,23 +50,24 @@ const NowPlaying: React.FC<NowPlayingProps> = ({ track }) => {
 
     return (
         <div className="flex items-center p-4 bg-gray-800 shadow-md">
-            <Image
-                src={trackDetails.album.images[0].url}
-                alt={trackDetails.name}
-                width={64}
-                height={64}
-                className="rounded-lg m-4"
-            ></Image>
-           
-            <div className="flex flex-col">
-                <h2 className="text-lg font-bold text-white">{trackDetails.name}</h2>
-                <p className="text-gray-400 text-sm">{trackDetails.artists.map(artist => artist.name).join(', ')}</p>
-            </div>
-            <div className="flex justify-between text-sm text-gray-400 ml-2">
+                <Image
+                    src={trackDetails.album.images[0].url}
+                    alt={trackDetails.name}
+                    width={64}
+                    height={64}
+                    className="rounded-lg m-1"
+                ></Image>
+            <Link href={`/tracks/${trackDetails.id}`}>
+                <div className="flex flex-col">
+                    <h2 className="text-lg pl-2 font-bold text-white">{trackDetails.name}</h2>
+                    <p className="text-gray-400 pl-2 text-sm">{trackDetails.artists.map(artist => artist.name).join(', ')}</p>
+                </div>
+            </Link>
+            <div className="flex justify-between text-sm text-gray-400 ml-10">
                 <span>{formatTime(progress)}</span>
             </div>
 
-            <div className="relative w-full mr-6 left-5 h-2 bg-gray-600 rounded">
+            <div className="relative right w-10/12 mr-6 left-5 h-2 bg-gray-600 rounded">
             
             <div
                 className="absolute top-0 h-full bg-green-500 rounded"

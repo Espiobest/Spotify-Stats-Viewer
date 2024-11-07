@@ -24,16 +24,11 @@ const UserProfileDetails: React.FC<UserProfileProp> = ({ userData }) => {
             )}
 
             <div className="flex flex-col">
-                <h2 className="text-lg font-bold text-white">{userData.display_name}</h2>
-                <p className="text-gray-400 text-sm">Followers: {userData.followers.total}</p>
-                <a
-                    href={userData.external_urls.spotify}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-green-400 text-sm mt-1 hover:underline"
-                >
-                    View on Spotify
-                </a>
+                <h2 className="text-2xl font-bold text-white">{userData.display_name}</h2>
+                <p className="text-gray-400 text-lg">Followers: {userData.followers.total}</p>
+                <button className="bg-green-500 text-white p-2 rounded-3xl px-5 mt-4">
+                    <a href={userData.external_urls.spotify} target="_blank">View in Spotify</a>
+                </button>
             </div>
         </div>
     );

@@ -79,7 +79,7 @@ const refreshAccessToken = async () => {
         localStorage.setItem('expiry', expiryTime.toString());
         localStorage.setItem('refresh_token', newRefreshToken);
     } catch (error) {
-        console.error("Error refreshing access token:", error);
+        console.log("Error refreshing access token:", error);
     }
 
 };
