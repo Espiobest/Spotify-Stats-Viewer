@@ -1,6 +1,9 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { NextPage } from 'next';
+import Lottie from 'lottie-react';
+
+import animation from '../../public/animation.json';
 import '../app/globals.css'
 
 
@@ -32,7 +35,9 @@ const Login: NextPage = () => {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen">
-            <h1 className="text-3xl font-bold mb-6">Welcome to Spotify Stats</h1>
+            <Lottie className="w-1/12" animationData={animation} loop={true} autoplay={true}/>
+            <br></br>
+            <h1 className="text-3xl font-bold mb-6">Explore Your Spotify Data</h1>
             <button onClick={() => handleLogin()} className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
             Login with Spotify
             </button>
