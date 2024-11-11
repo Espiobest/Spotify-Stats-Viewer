@@ -9,7 +9,7 @@ function MyApp({ Component, pageProps }) {
         {/* Global meta description */}
         <meta name="description" content="An app that displays your Spotify Listening Activity" />
         {/* Global favicon */}
-        <link rel="icon" href="../../public/favicon.ico" />
+        <link rel="icon" href="favicon.ico" />
       </Head>
 
       <Component {...pageProps} />

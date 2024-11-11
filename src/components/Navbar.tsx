@@ -9,7 +9,9 @@ const Navbar: React.FC<{ userData: UserProfile }> = ({ userData }) => {
 
     return (
         <div className="flex flex-row p-2 sm:p-4 items-center">
-                <Image src="/spotify-logo.png" alt="Spotify Logo" width={40} height={40} />
+                <Link href="/dashboard">
+                    <Image src="/spotify-logo.png" alt="Spotify Logo" width={40} height={40} />
+                </Link>
                 <ul className="flex items-center ml-4 space-x-4">
                     <Link href="/dashboard">
                         <li className="text-sm sm:text-xl font-bold hover:underline">Profile</li>

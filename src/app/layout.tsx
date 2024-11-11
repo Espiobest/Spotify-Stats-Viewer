@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   title: "Spotify Stats",
   description: "A Spotify stats dashboard built with Next.js",
   icons: {
-    icon: "../public/favicon.ico",
+    icon: "favicon.ico",
   }
 };
 
@@ -29,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="../public/favicon.ico" />
+        <link rel="icon" href="favicon.ico" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
