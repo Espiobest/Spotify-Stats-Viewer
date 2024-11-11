@@ -1,18 +1,18 @@
 const SPOTIFY_API_BASE_URL = 'https://api.spotify.com/v1';
 const TOKEN_URL = 'https://accounts.spotify.com/api/token';
 
-export const fetchSpotifyData = async (endpoint: string): Promise<any> => {
+export const fetchSpotifyData = async (endpoint: string) => {
     let accessToken = localStorage.getItem('access_token');
     const expiry = localStorage.getItem('expiry');
     if (!accessToken) {
         console.error("Access token is missing");
-        handleLogout();
         return;
     }
     
     if (Number(expiry) < Date.now()) {
         await refreshAccessToken();
         accessToken = localStorage.getItem('access_token');
+
     }
 
     try {
@@ -24,14 +24,8 @@ export const fetchSpotifyData = async (endpoint: string): Promise<any> => {
             }
         });
         if (!response.ok) {
-            if (response.status === 401) {
-                await refreshAccessToken();
-                return fetchSpotifyData(endpoint);
-            }
-            else {
-                console.error("Error fetching Spotify data:", response);
-                handleLogout();
-            }
+            console.error("Error fetching Spotify data:", response);
+            handleLogout();
         }
 
         if (response.status === 204) {
