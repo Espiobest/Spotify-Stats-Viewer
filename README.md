@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Spotify Dashboard
 
-## Getting Started
+A web application that allows users to view their Spotify profile, top tracks, top artists, and currently playing track. Built with Next.js and Tailwind CSS, the app fetches user data from the Spotify API and displays it in a responsive, modern interface. I built this to practice React and TypeScript.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Displays **user profile** information, including name, profile picture, and followers.
+- Shows **top tracks** and **top artists** in the user's account.
+- Displays the **currently playing track** with a progress bar.
+- Displays **recent tracks** the user has listened to.
+- Responsive design that adapts to various screen sizes.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Frontend**: 
+  - Next.js (React)
+  - Tailwind CSS for styling
+- **API**: Spotify Web API (for fetching user data, tracks, and artists)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Setup
 
-## Learn More
+1. Clone the repository:
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   git clone https://github.com/Espiobest/spotify-stats-viewer.git
+   cd spotify-stats-viewer
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. Install dependencies:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ```bash
+   npm install
+   ```
 
-## Deploy on Vercel
+3. Set up **Spotify API credentials**:
+   - You need to create a Spotify Developer App and obtain a client ID and client secret from the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/applications).
+   - Add the client ID and client secret to your environment variables (`.env.local`).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   Example `.env.local` file:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   ```bash
+   NEXT_PUBLIC_SPOTIFY_CLIENT_ID=your_client_id
+   NEXT_PUBLIC_SPOTIFY_CLIENT_SECRET=your_client_secret
+   NEXT_PUBLIC_SPOTIFY_REDIRECT_URI=http://localhost:3000/callback
+   ```
+
+4. Run the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+   The app will be available at [http://localhost:3000](http://localhost:3000).
+
+## Contributing
+
+Feel free to fork the repo, open issues, and submit pull requests! Contributions are welcome.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
