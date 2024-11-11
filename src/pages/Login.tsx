@@ -7,7 +7,7 @@ import '../app/globals.css'
 const clientId = process.env.SPOTIFY_CLIENT_ID;
 const redirectUri = process.env.SPOTIFY_REDIRECT_URI;
 
-const Login: NextPage = () => {
+const LoginView: NextPage = () => {
 
     useEffect(() => {
         if (localStorage.getItem('access_token')) {
@@ -40,4 +40,4 @@ const Login: NextPage = () => {
     );
 };
 
-export default Login;
+export default LoginView;

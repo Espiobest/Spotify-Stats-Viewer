@@ -12,7 +12,7 @@ import { fetchSpotifyData } from '../services/spotifyService';
 
 import '../app/globals.css';
 
-const Dashboard: React.FC = () => {
+const DashboardView: React.FC = () => {
     const [topTracks, setTopTracks] = useState<Track[]>([]);
     const [topArtists, setTopArtists] = useState<Artist[]>([]);
     const [userData, setUserData] = useState<UserProfile | null>(null);
@@ -70,4 +70,4 @@ const Dashboard: React.FC = () => {
     );
 };
 
-export default Dashboard;
+export default DashboardView;
