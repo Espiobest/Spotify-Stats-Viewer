@@ -4,7 +4,6 @@ import TopTracksList from '../components/TopTracksList';
 import TopArtistsList from '../components/TopArtistsList';
 import NowPlaying from '../components/NowPlaying';
 import UserProfileDetails from '../components/UserProfile';
-import RecentTracks from '../components/RecentTracks';
 import Navbar from '../components/Navbar';
 
 import { Track, Artist, UserProfile, NowPlayingTrack} from '../types/spotify';
