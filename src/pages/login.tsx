@@ -11,7 +11,7 @@ const Login: NextPage = () => {
 
     useEffect(() => {
         if (localStorage.getItem('access_token')) {
-            window.location.href = '/Dashboard';
+            window.location.href = '/dashboard';
         }
     }, []);
 
