@@ -11,7 +11,7 @@ const Navbar: React.FC<{ userData: UserProfile }> = ({ userData }) => {
         <div className="flex flex-row p-2 sm:p-4 items-center">
                 <Image src="/spotify-logo.png" alt="Spotify Logo" width={40} height={40} />
                 <ul className="flex items-center ml-4 space-x-4">
-                    <Link href="/dashboard">
+                    <Link href="/Dashboard">
                         <li className="text-sm sm:text-xl font-bold hover:underline">Profile</li>
                     </Link>
                     <Link href="/tracks">

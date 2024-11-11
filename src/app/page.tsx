@@ -13,7 +13,7 @@ const MainPage: React.FC = () => {
   useEffect(() => {
       setIsAuthenticated(!!localStorage.getItem('access_token'));
       if (isAuthenticated) {
-          router.push('/dashboard');
+          router.push('/Dashboard');
       }
   }, [router, isAuthenticated]);
   return (
