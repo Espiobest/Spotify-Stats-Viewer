@@ -43,7 +43,7 @@ const Callback: React.FC = () => {
                     localStorage.setItem('access_token', data.access_token);
                     localStorage.setItem('expiry', (Date.now() + data.expires_in * 1000).toString());
                     localStorage.setItem('refresh_token', data.refresh_token);
-                    router.push('/Dashboard');
+                    router.push('/dashboard');
                 }
                 catch (error) {
                     console.log('Error saving token to local storage:', error);

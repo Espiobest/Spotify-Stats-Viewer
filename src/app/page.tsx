@@ -1,7 +1,7 @@
 'use client';
 import React from 'react'; 
 import { useEffect, useState } from 'react';
-import Login from '../pages/Login';
+import Login from '../pages/login';
 import { useRouter } from 'next/navigation';
 import Head from 'next/head';
 
@@ -13,7 +13,7 @@ const MainPage: React.FC = () => {
   useEffect(() => {
       setIsAuthenticated(!!localStorage.getItem('access_token'));
       if (isAuthenticated) {
-          router.push('/Dashboard');
+          router.push('/dashboard');
       }
   }, [router, isAuthenticated]);
   return (
