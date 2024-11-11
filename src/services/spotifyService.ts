@@ -30,8 +30,8 @@ export const fetchSpotifyData = async (endpoint: string): Promise<any> => {
             }
             else {
                 console.error("Error fetching Spotify data:", response);
+                handleLogout();
             }
-            // handleLogout();
         }
 
         if (response.status === 204) {
