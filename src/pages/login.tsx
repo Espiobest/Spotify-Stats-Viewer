@@ -35,10 +35,11 @@ const Login: NextPage = () => {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen">
-            <Lottie className="w-1/12" animationData={animation} loop={true} autoplay={true}/>
+            <h1 className="text-5xl p-2 text-center font-bold mb-6">Spotify Stats</h1>
+            <Lottie className="w-1/2 lg:w-1/8 sm:w-1/4" animationData={animation} loop={true} autoplay={true}/>
             <br></br>
-            <h1 className="text-3xl font-bold mb-6">Explore Your Spotify Data</h1>
-            <button onClick={() => handleLogin()} className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+            <h1 className="text-3xl p-2 text-center font-bold mb-6">Explore Your Spotify Data</h1>
+            <button onClick={() => handleLogin()} className="bg-green-500 text-white px-8 py-4 rounded hover:bg-green-600">
             Login with Spotify
             </button>
         </div>
