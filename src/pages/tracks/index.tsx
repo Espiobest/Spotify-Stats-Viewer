@@ -48,7 +48,7 @@ const TracksPage: React.FC = () => {
             {isAuthenticated ? (
                 <div className="p-4" style={{ backgroundColor: '#121212' }}>
                     {userData && <Navbar userData={userData}></Navbar>}
-                    <h1 className="text-3xl font-bold text-center text-white mb-4">Top Tracks</h1>
+                    <h1 className="text-3xl font-bold text-center text-white mb-4">Your Top Tracks</h1>
                     <select
                         value={timeRange}
                         onChange={(e) => setTimeRange(e.target.value)}

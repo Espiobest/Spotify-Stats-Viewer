@@ -19,6 +19,7 @@ const Login: NextPage = () => {
         
         const scopes = [
             'user-read-currently-playing',
+            'user-read-recently-played',
             'user-top-read',
             'user-library-read',
             'user-follow-read',

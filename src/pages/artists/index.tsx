@@ -53,7 +53,7 @@ const ArtistPage: React.FC = () => {
             {isAuthenticated ? (
                 <div className="p-4" style={{ backgroundColor: '#121212' }}>
                     {userData && <Navbar userData={userData}></Navbar>}
-                    <h1 className="text-3xl font-bold text-white mb-4 text-center">Top Artists</h1>
+                    <h1 className="text-3xl font-bold text-white mb-4 text-center">Your Top Artists</h1>
                     <select
                         value={timeRange}
                         onChange={(e) => setTimeRange(e.target.value)}

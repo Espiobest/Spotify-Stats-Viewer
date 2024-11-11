@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
+import { CiClock2 } from "react-icons/ci";
 
 import Navbar from "../../components/Navbar";
 import { fetchSpotifyData } from "../../services/spotifyService";
@@ -24,7 +25,8 @@ const ArtistPage: React.FC = () => {
         const isAuthenticated = !!localStorage.getItem('access_token');
         
         if (!isAuthenticated) {
-            window.location.href = '/login';
+            console.log('Not authenticated');
+            router.push('/login');
         }
 
         const storedUserData = localStorage.getItem('user');
@@ -60,11 +62,13 @@ const ArtistPage: React.FC = () => {
             {userData && <Navbar userData={userData}></Navbar>}
             <div>
                 {artistData && (
-                    <div className="p-4" style={{ backgroundColor: '#121212' }}>
+                    <div className="sm:p-4" style={{ backgroundColor: '#121212' }}>
                         <Link href={artistData.external_urls.spotify} target="_blank">
                             <Image
                                 src={artistData.images[0].url}
                                 alt={artistData.name}
+                                width={320}
+                                height={320}
                                 className="rounded-full h-64 w-64 mx-auto mb-4"
                             />
                         </Link>
@@ -73,30 +77,30 @@ const ArtistPage: React.FC = () => {
                         <div className="max-w-lg mx-auto flex justify-between items-center mb-4">
                                 
                             <div>
-                                <p className="flex-1 text-xl font-bold text-white text-center" style={{color: '#1ed760'}}>{artistData.followers.total.toLocaleString()}</p>
+                                <p className="flex-1 text-md sm:text-xl font-bold text-white text-center" style={{color: '#1ed760'}}>{artistData.followers.total.toLocaleString()}</p>
                                 <h2 className="text-sm flex-1 sm:text-l font-bold mb-4 text-center">FOLLOWERS</h2>
                             </div>
 
                             <div>
                                 {
                                     capitalize(artistData.genres).map((genre: string) => (
-                                        <p key={genre} className="text-white font-bold text-xl text-center" style={{color: '#1ed760'}}>{genre}<br></br></p>
+                                        <p key={genre} className="text-white font-bold text-md sm:text-xl text-center" style={{color: '#1ed760'}}>{genre}<br></br></p>
                                     ))
                                 }
                                 <h2 className="flex-1 text-l font-bold mb-4 text-center">GENRES</h2>
                             </div>
                         
                             <div>
-                                <p className="flex-1 text-xl font-bold text-white text-center" style={{color: '#1ed760'}}>{artistData.popularity}%</p>
-                                <h2 className="flex-1 text-l font-bold mb-4 text-center">POPULARITY</h2>
+                                <p className="flex-1 text-md sm: text-xl font-bold text-white text-center" style={{color: '#1ed760'}}>{artistData.popularity}%</p>
+                                <h2 className="flex-1 text-sm font-bold mb-4 text-center">POPULARITY</h2>
                             </div>
                         </div>
 
                         <h2 className="text-2xl font-bold text-white mb-4 text-center">Top Tracks</h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
                             {artistTopTracks && artistTopTracks.map((track: Track) => (
                                 <Link key={track.id} href={`/tracks/${track.id}`}>
-                                    <div className="p-4 hover:bg-gray-800" style={{ height: '300px' }}>
+                                    <div className="p-4 hover:bg-gray-800">
                                         <Image
                                             priority={true} 
                                             src={track.album.images[0]?.url} 
@@ -105,24 +109,29 @@ const ArtistPage: React.FC = () => {
                                             height={200} 
                                             className="rounded-md mb-2 items-center mx-auto" 
                                         />
-                                        <p className="mx-auto text-white font-semibold text-center">{track.name}</p>
-                                        <p className="pl-4 text-left">{formatTime(track.duration_ms)}</p>
+                                        <p className="mx-auto text-white text-sm sm:text-md font-semibold text-center">{track.name}</p>
+                                        <p className="pl-4 text-left">
+                                            <CiClock2 className="text-md text-gray-400" />
+                                            {formatTime(track.duration_ms)}
+                                        </p>
                                     </div>
                                 </Link>
                             ))}
                         </div>
 
                         <h2 className="text-2xl font-bold text-white mb-4 text-center p-4">Albums</h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
                             {artistAlbums && artistAlbums.map((album: Album) => (
-                                <Link key={album.id} href={`${album.external_urls.spotify}`} target="_blank">
-                                    <div key={album.id} className="p-4 hover:bg-gray-800" style={{ height: '300px'  }}>
+                                <Link key={album.id} href={`/albums/${album.id}`}>
+                                    <div key={album.id} className="p-4 hover:bg-gray-800">
                                         <Image
                                             src={album.images[0].url}
                                             alt={album.name}
-                                            className="rounded-lg h-48 w-48 mx-auto mb-4"
+                                            className="rounded-lg sm:h-48 w-48 mx-auto mb-4"
+                                            width={200}
+                                            height={200}
                                         />
-                                        <h3 className="text-xl font-bold text-white text-center">{album.name}</h3>
+                                        <h3 className="font-bold text-sm sm:text-md text-white text-center">{album.name}</h3>
                                         <p className="text-sm text-gray-400">{album.release_date} <span className="float-right">{album.total_tracks} tracks</span></p>
                                     </div>
                                 </Link>

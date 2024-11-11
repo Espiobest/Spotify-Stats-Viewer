@@ -39,7 +39,6 @@ const TrackPage: React.FC = () => {
         const fetchTrackFeatures = async () => {
             const data = await fetchSpotifyData(`audio-features/${id}`);
             setTrackFeatures(data);
-            console.log(data)
         };
 
         if (id) {

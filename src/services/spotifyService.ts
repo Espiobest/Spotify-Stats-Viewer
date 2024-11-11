@@ -22,7 +22,8 @@ export const fetchSpotifyData = async (endpoint: string) => {
             }
         });
         if (!response.ok) {
-            handleLogout();
+            console.error("Failed to fetch Spotify data", response);
+            // handleLogout();
         }
 
         if (response.status === 204) {

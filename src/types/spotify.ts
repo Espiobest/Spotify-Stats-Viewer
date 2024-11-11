@@ -12,6 +12,7 @@ export interface NowPlayingTrack extends Track {
     progress_ms: number;
     item: Track;
     duration_ms: number;
+    isplaying: boolean;
 }
 
 export interface Artist {
@@ -39,6 +40,7 @@ export interface Album {
     external_urls: { spotify: string };
     total_tracks: number;
     release_date: string;
+    artists: Artist[];
 }
 
 export interface TrackFeatures {

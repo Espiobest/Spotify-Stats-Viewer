@@ -4,6 +4,8 @@ import { fetchSpotifyData } from '../services/spotifyService';
 import { NowPlayingTrack } from '../types/spotify';
 import Link from 'next/link';
 
+import { truncate } from '../utils/utils';
+
 interface NowPlayingProps {
     track: NowPlayingTrack | null;
 }
@@ -67,13 +69,13 @@ const NowPlaying: React.FC<NowPlayingProps> = ({ track }) => {
                 />
                 <Link href={`/tracks/${trackDetails.id}`}>
                     <div className="flex flex-col">
-                        <h2 className="text-lg pl-2 font-bold text-white">{trackDetails.name}</h2>
-                        <p className="text-gray-400 pl-2 text-sm">
+                        <h2 className="text-xs sm:text-sm md:text-lg pl-2 font-bold text-white">{truncate(trackDetails.name, 20)}</h2>
+                        <p className="text-gray-400 pl-2 text-xs sm:text-sm">
                             {trackDetails.artists.map((artist) => artist.name).join(', ')}
                         </p>
                     </div>
                 </Link>
-                <div className="flex justify-between text-sm text-gray-400 ml-10">
+                <div className="flex justify-between text-sm text-gray-400 ml-4 lg:ml-10">
                     <span>{formatTime(progress)}</span>
                 </div>
 
