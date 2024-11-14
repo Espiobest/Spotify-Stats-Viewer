@@ -40,6 +40,10 @@ const Callback: React.FC = () => {
             .then((response) => response.json())
             .then((data) => {
                 try {
+                    if (!data.access_token || !data.refresh_token || !data.expires_in) {
+                        console.error('Invalid token response:', data);
+                        router.push('/login');
+                    }
                     localStorage.setItem('access_token', data.access_token);
                     localStorage.setItem('expiry', (Date.now() + data.expires_in * 1000).toString());
                     localStorage.setItem('refresh_token', data.refresh_token);

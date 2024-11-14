@@ -10,9 +10,15 @@ export const fetchSpotifyData = async (endpoint: string) => {
     }
     
     if (Number(expiry) < Date.now()) {
+        console.log("Access token expired, refreshing...");
         await refreshAccessToken();
         accessToken = localStorage.getItem('access_token');
-
+        console.log("Access token refreshed:", accessToken);
+        if (!accessToken) {
+            console.error("Access token is missing after refresh");
+            handleLogout();
+            return;
+        }
     }
 
     try {
@@ -25,7 +31,8 @@ export const fetchSpotifyData = async (endpoint: string) => {
         });
         if (!response.ok) {
             console.error("Error fetching Spotify data:", response);
-            handleLogout();
+            return;
+            // handleLogout();
         }
 
         if (response.status === 204) {
@@ -54,6 +61,7 @@ const refreshAccessToken = async () => {
         return;
     }
 
+    console.log("Refreshing access token...", refreshToken);
     try {
         const response = await fetch(TOKEN_URL, {
             method: 'POST',
@@ -69,6 +77,7 @@ const refreshAccessToken = async () => {
         });
 
         if (!response.ok) {
+            console.error("Failed to refresh access token:", response);
             throw new Error('Failed to refresh access token');
         }
 
@@ -77,7 +86,10 @@ const refreshAccessToken = async () => {
         const expiresIn = data.expires_in;
         const expiryTime = Date.now() + expiresIn * 1000;
         const newRefreshToken = data.refresh_token;
-
+        if (!newAccessToken || !newRefreshToken) {
+            console.error("Invalid token response:", data);
+            handleLogout();
+        }
         localStorage.setItem('access_token', newAccessToken);
         localStorage.setItem('expiry', expiryTime.toString());
         localStorage.setItem('refresh_token', newRefreshToken);

@@ -35,20 +35,30 @@ const Dashboard: React.FC = () => {
         };
         const fetchTopTracks = async () => {
             const data = await fetchSpotifyData('me/top/tracks?time_range=medium_term&limit=10');
+            if (!data) {
+                return;
+            }
             setTopTracks(data.items);
         };
         const fetchTopArtists = async () => {
             const data = await fetchSpotifyData('me/top/artists?time_range=medium_term&limit=10');
+            if (!data) {
+                return;
+            }
             setTopArtists(data.items);
         };
         const fetchNowPlaying = async () => {
             const data = await fetchSpotifyData('me/player/currently-playing');
-            if (data) {
-                setNowPlaying(data);
+            if (!data) {
+                return;
             }
+            setNowPlaying(data);
         };
         const fetchRecentTracks = async () => {
             const data = await fetchSpotifyData('me/player/recently-played?limit=3');
+            if (!data) {
+                return;
+            }
             setRecentTracks(data.items);
         };
         
