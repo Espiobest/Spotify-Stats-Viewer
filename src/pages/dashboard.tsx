@@ -28,7 +28,6 @@ const Dashboard: React.FC = () => {
             }
             else {
                 data = await fetchSpotifyData('me');
-                console.log("User data from API:", data);
                 if (!data) {
                     return;
                 }
