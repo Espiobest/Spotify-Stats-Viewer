@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
 import { CiClock2 } from "react-icons/ci";
+import { CgProfile } from "react-icons/cg";
 
 import Navbar from "../../components/Navbar";
 import { fetchSpotifyData } from "../../services/spotifyService";
@@ -63,6 +64,7 @@ const ArtistPage: React.FC = () => {
             <div>
                 {artistData && (
                     <div className="sm:p-4" style={{ backgroundColor: '#121212' }}>
+                        { artistData.images[0] ? 
                         <Link href={artistData.external_urls.spotify} target="_blank">
                             <Image
                                 src={artistData.images[0].url}
@@ -71,7 +73,7 @@ const ArtistPage: React.FC = () => {
                                 height={320}
                                 className="rounded-full h-64 w-64 mx-auto mb-4"
                             />
-                        </Link>
+                        </Link> : <CgProfile className="text-white mx-auto" style={{'width': 256, 'height': 256 }}/> }
                         <h1 className="text-3xl font-bold text-white mb-4 text-center">{artistData.name}</h1>
               
                         <div className="max-w-lg mx-auto flex justify-between items-center mb-4">
@@ -83,9 +85,12 @@ const ArtistPage: React.FC = () => {
 
                             <div>
                                 {
+                                    (artistData.genres.length > 0) ?
                                     capitalize(artistData.genres).map((genre: string) => (
                                         <p key={genre} className="text-white font-bold text-md sm:text-xl text-center" style={{color: '#1ed760'}}>{genre}<br></br></p>
-                                    ))
+                                    )) :
+                                    <p className="text-white font-bold text-md sm:text-xl text-center" style={{color: '#1ed760'}}>N/A</p>
+                                    
                                 }
                                 <h2 className="flex-1 text-l font-bold mb-4 text-center">GENRES</h2>
                             </div>

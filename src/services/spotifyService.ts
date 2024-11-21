@@ -72,7 +72,6 @@ export const refreshAccessToken = async () => {
 
         const data = await response.json();
         const newAccessToken = data.access_token;
-        console.log("DATA", data)
 
         if (accessToken === newAccessToken) {
             return;

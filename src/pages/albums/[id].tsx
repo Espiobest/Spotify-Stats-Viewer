@@ -41,7 +41,6 @@ const AlbumPage: React.FC = () => {
             const data = await fetchSpotifyData(`albums/${id}`);
             setAlbumData(data);
             setAlbumTracks(data.tracks.items);
-            console.log(data);
         };
 
         if (id) {

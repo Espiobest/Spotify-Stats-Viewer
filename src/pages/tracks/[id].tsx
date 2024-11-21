@@ -9,6 +9,7 @@ import { formatTime, getKey } from "../../utils/utils";
 import { Track, Artist, UserProfile, TrackFeatures } from "../../types/spotify";
 
 import '../../app/globals.css';
+import Link from "next/link";
 
 const TrackPage: React.FC = () => {
     const router = useRouter();
@@ -35,6 +36,7 @@ const TrackPage: React.FC = () => {
         const fetchTrackData = async () => {
             const data = await fetchSpotifyData(`tracks/${id}`);
             setTrackData(data);
+            console.log(data);
         };
         const fetchTrackFeatures = async () => {
             const data = await fetchSpotifyData(`audio-features/${id}`);
@@ -63,8 +65,16 @@ const TrackPage: React.FC = () => {
                             />
                             <div className="ml-4">
                                 <h1 className="text-3xl font-bold text-white mb-4">{trackData.name}</h1>
-                                <p className="text-white font-bold">{trackData.artists.map((artist: Artist) => artist.name).join(', ')}</p>
-                                <p className="text-gray-400">{trackData.album.name}</p>
+                                {
+                                    trackData.artists.map((artist: Artist) => (
+                                        <Link key={artist.id} href={`/artists/${artist.id}`}>
+                                            <p className="text-white font-bold hover:underline">{artist.name}</p>
+                                        </Link>
+                                    ))
+                                }
+                                <Link href={`/albums/${trackData.album.id}`}>
+                                    <p className="text-gray-400 hover:underline">{trackData.album.name}</p>
+                                </Link>
                                 <p className="text-gray-400">{trackData.album.release_date.split("-")[0]}</p>
                                 <p className="text-gray-400">{formatTime(trackData.duration_ms)}</p>
                                 <button className="bg-green-500 text-white p-2 rounded-3xl px-5 mt-4">
