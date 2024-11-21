@@ -12,7 +12,7 @@ export interface NowPlayingTrack extends Track {
     progress_ms: number;
     item: Track;
     duration_ms: number;
-    isplaying: boolean;
+    is_playing: boolean;
 }
 
 export interface Artist {

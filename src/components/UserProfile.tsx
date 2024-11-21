@@ -3,6 +3,7 @@ import Image from 'next/image';
 
 import RecentTracks from './RecentTracks';
 import { UserProfile, Track } from '../types/spotify';
+import { CgProfile } from "react-icons/cg";
 
 interface UserProfileProp {
     userData: UserProfile | null;
@@ -15,7 +16,6 @@ const UserProfileDetails: React.FC<UserProfileProp> = ({ userData, recentTracks 
     if (!userData) {
         return null;
     }
-
     return (
         <div>
             <div className="flex items-center p-4 bg-gray-800 shadow-md">
@@ -28,13 +28,7 @@ const UserProfileDetails: React.FC<UserProfileProp> = ({ userData, recentTracks 
                         className="rounded-full mr-4"
                     />
                 ) || (
-                    <Image
-                        src="../public/profile.svg"
-                        alt={`${userData.display_name}'s profile picture`}
-                        width={256}
-                        height={256}
-                        className="rounded-full mr-4"
-                    />
+                    <CgProfile className="text-white mr-4" style={{'width': 256, 'height': 256 }}/>
                 )}
 
                 <div className="flex flex-col flex-grow items-center sm:flex-row sm:justify-between sm:w-full">

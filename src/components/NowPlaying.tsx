@@ -47,7 +47,6 @@ const NowPlaying: React.FC<NowPlayingProps> = ({ track }) => {
 
         return () => clearInterval(interval);
     }, [nowPlayingTrack, track]);
-
     if (!nowPlayingTrack?.item) {
         return null;
     }

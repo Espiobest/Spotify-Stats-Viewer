@@ -2,23 +2,11 @@ const SPOTIFY_API_BASE_URL = 'https://api.spotify.com/v1';
 const TOKEN_URL = 'https://accounts.spotify.com/api/token';
 
 export const fetchSpotifyData = async (endpoint: string) => {
-    let accessToken = localStorage.getItem('access_token');
-    const expiry = localStorage.getItem('expiry');
+    const accessToken = localStorage.getItem('access_token');
     if (!accessToken) {
         console.error("Access token is missing");
+        handleLogout();
         return;
-    }
-    
-    if (Number(expiry) < Date.now()) {
-        console.log("Access token expired, refreshing...");
-        await refreshAccessToken();
-        accessToken = localStorage.getItem('access_token');
-        console.log("Access token refreshed:", accessToken);
-        if (!accessToken) {
-            console.error("Access token is missing after refresh");
-            handleLogout();
-            return;
-        }
     }
 
     try {
@@ -46,13 +34,15 @@ export const fetchSpotifyData = async (endpoint: string) => {
     }
 };
 
-const refreshAccessToken = async () => {
+export const refreshAccessToken = async () => {
+    const accessToken = localStorage.getItem('access_token');
     const refreshToken = localStorage.getItem('refresh_token');
     const clientId = process.env.SPOTIFY_CLIENT_ID;
     const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
 
     if (!refreshToken) {
         console.error("Refresh token is missing");
+        handleLogout();
         return;
     }
 
@@ -61,7 +51,6 @@ const refreshAccessToken = async () => {
         return;
     }
 
-    console.log("Refreshing access token...", refreshToken);
     try {
         const response = await fetch(TOKEN_URL, {
             method: 'POST',
@@ -83,13 +72,25 @@ const refreshAccessToken = async () => {
 
         const data = await response.json();
         const newAccessToken = data.access_token;
+        console.log("DATA", data)
+
+        if (accessToken === newAccessToken) {
+            return;
+        }
+
         const expiresIn = data.expires_in;
         const expiryTime = Date.now() + expiresIn * 1000;
-        const newRefreshToken = data.refresh_token;
-        if (!newAccessToken || !newRefreshToken) {
+        let newRefreshToken = data.refresh_token;
+        if (!newAccessToken) {
             console.error("Invalid token response:", data);
-            handleLogout();
+            return;
+            // handleLogout();
         }
+
+        if (!newRefreshToken && refreshToken) {
+            newRefreshToken = refreshToken;
+        }
+
         localStorage.setItem('access_token', newAccessToken);
         localStorage.setItem('expiry', expiryTime.toString());
         localStorage.setItem('refresh_token', newRefreshToken);

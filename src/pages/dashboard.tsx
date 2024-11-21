@@ -8,7 +8,7 @@ import Navbar from '../components/Navbar';
 
 import { Track, Artist, UserProfile, NowPlayingTrack} from '../types/spotify';
 
-import { fetchSpotifyData } from '../services/spotifyService';
+import { fetchSpotifyData, refreshAccessToken, handleLogout } from '../services/spotifyService';
 
 import '../app/globals.css';
 
@@ -22,14 +22,18 @@ const Dashboard: React.FC = () => {
     useEffect(() => {
         const fetchUserData = async () => {
             let data;
-            if (window.localStorage.getItem('user')) {
-                const storedUserData = window.localStorage.getItem('user');
-                data = JSON.parse(storedUserData as string);
+            const storedUserData = JSON.parse(window.localStorage.getItem('user') as string);
+            if (storedUserData) {
+                data = storedUserData
             }
             else {
                 data = await fetchSpotifyData('me');
-                window.localStorage.setItem('user', JSON.stringify(data));
+                console.log("User data from API:", data);
+                if (!data) {
+                    return;
+                }
             }
+            window.localStorage.setItem('user', JSON.stringify(data));
             
             setUserData(data);
         };
@@ -62,18 +66,45 @@ const Dashboard: React.FC = () => {
             setRecentTracks(data.items);
         };
         
-        fetchUserData();
-        fetchTopTracks();
-        fetchTopArtists();
-        fetchNowPlaying();
-        fetchRecentTracks();
+        const fetchAllData = async () => {
+            await fetchUserData();
+            await fetchTopTracks();
+            await fetchTopArtists();
+            await fetchNowPlaying();
+            await fetchRecentTracks();
+        }
+
+        const expiry = localStorage.getItem('expiry');
+        if (Number(expiry) < Date.now()) {
+            console.log("Access token expired, refreshing...");
+            refreshAccessToken()
+            .then(() => {
+                const accessToken = localStorage.getItem('access_token');
+                if (!accessToken) {
+                    console.error("Access token is missing after refresh");
+                    handleLogout();
+                    return;
+                }
+            })
+            .catch((error) => {
+                console.error("Error refreshing access token:", error);
+                handleLogout();
+                return;
+            }).finally(() => {
+                fetchAllData();
+            });
+        }
+        else{
+            fetchAllData();
+        }
+       
     }, []);
 
     return (
         <div className="text-white">
             {userData && <Navbar userData={userData}/>}
             {userData && <UserProfileDetails userData={userData} recentTracks={recentTracks} />}
-            {nowPlaying && nowPlaying.isplaying && <NowPlaying track={nowPlaying} />}
+            {nowPlaying && nowPlaying.is_playing && <NowPlaying track={nowPlaying} />}
             <TopTracksList tracks={topTracks} showHeader={true} />
             <TopArtistsList artists={topArtists} showHeader={true} />
         </div>

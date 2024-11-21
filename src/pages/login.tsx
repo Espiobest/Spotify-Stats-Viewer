@@ -13,7 +13,7 @@ const redirectUri = process.env.SPOTIFY_REDIRECT_URI;
 const Login: NextPage = () => {
 
     useEffect(() => {
-        if (localStorage.getItem('access_token')) {
+        if (localStorage.getItem('access_token') && localStorage.getItem('refresh_token') !== 'undefined') {
             window.location.href = '/dashboard';
         }
     }, []);
