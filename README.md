@@ -4,54 +4,54 @@ A web application [(link)](https://spotify-stats-viewer.vercel.app/) that allows
 
 ## Features
 
-- Displays **user profile** information, including name, profile picture, and followers.
-- Shows **top tracks** and **top artists** in the user's account.
-- Displays the **currently playing track** with a progress bar.
-- Displays **recent tracks** the user has listened to.
-- Responsive design that adapts to various screen sizes.
+-   Displays **user profile** information, including name, profile picture, and followers.
+-   Shows **top tracks** and **top artists** in the user's account.
+-   Displays the **currently playing track** with a progress bar.
+-   Displays **recent tracks** the user has listened to.
+-   Responsive design that adapts to various screen sizes.
 
 ## Tech Stack
 
-- **Frontend**:
-  - Next.js (React)
-  - Tailwind CSS for styling
-- **API**: Spotify Web API (for fetching user data, tracks, and artists)
+-   **Frontend**:
+    -   Next.js (React)
+    -   Tailwind CSS for styling
+-   **API**: Spotify Web API (for fetching user data, tracks, and artists)
 
 ## Setup
 
 1. Clone the repository:
 
-   ```bash
-   git clone https://github.com/Espiobest/spotify-stats-viewer.git
-   cd spotify-stats-viewer
-   ```
+    ```bash
+    git clone https://github.com/Espiobest/spotify-stats-viewer.git
+    cd spotify-stats-viewer
+    ```
 
 2. Install dependencies:
 
-   ```bash
-   npm install
-   ```
+    ```bash
+    npm install
+    ```
 
 3. Set up **Spotify API credentials**:
 
-   - You need to create a Spotify Developer App and obtain a client ID and client secret from the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/applications).
-   - Add the client ID and client secret to your environment variables (`.env.local`).
+    - You need to create a Spotify Developer App and obtain a client ID and client secret from the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/applications).
+    - Add the client ID and client secret to your environment variables (`.env.local`).
 
-   Example `.env.local` file:
+    Example `.env.local` file:
 
-   ```bash
-   NEXT_PUBLIC_SPOTIFY_CLIENT_ID=your_client_id
-   NEXT_PUBLIC_SPOTIFY_CLIENT_SECRET=your_client_secret
-   NEXT_PUBLIC_SPOTIFY_REDIRECT_URI=http://localhost:3000/callback
-   ```
+    ```bash
+    NEXT_PUBLIC_SPOTIFY_CLIENT_ID=your_client_id
+    NEXT_PUBLIC_SPOTIFY_CLIENT_SECRET=your_client_secret
+    NEXT_PUBLIC_SPOTIFY_REDIRECT_URI=http://localhost:3000/callback
+    ```
 
 4. Run the development server:
 
-   ```bash
-   npm run dev
-   ```
+    ```bash
+    npm run dev
+    ```
 
-   The app will be available at [http://localhost:3000](http://localhost:3000).
+    The app will be available at [http://localhost:3000](http://localhost:3000).
 
 ## Contributing
 
