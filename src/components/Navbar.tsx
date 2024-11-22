@@ -4,7 +4,7 @@ import Image from "next/image"
 import { handleLogout } from "../services/spotifyService"
 import { UserProfile } from "../types/spotify"
 
-const Navbar: React.FC<{ userData: UserProfile }> = ({ userData }) => {
+const Navbar: React.FC<{ userData: UserProfile | null }> = ({ userData }) => {
     return (
         <div className="flex flex-row p-2 sm:p-4 items-center">
             <Link href="/dashboard">

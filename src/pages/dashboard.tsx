@@ -101,7 +101,7 @@ const Dashboard: React.FC = () => {
 
     return (
         <div className="text-white">
-            {userData && <Navbar userData={userData} />}
+            <Navbar userData={userData} />
             {userData && (
                 <UserProfileDetails
                     userData={userData}
