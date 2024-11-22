@@ -31,6 +31,9 @@
         "typescript": "^5"
     },
     "lint-staged": {
-        "*.{js,jsx,ts,tsx}": "prettier . --check"
+      "*.{js,jsx,ts,tsx}": [
+        "eslint --fix",
+        "prettier --check"
+      ]
     }
 }
