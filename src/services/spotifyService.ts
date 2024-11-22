@@ -108,8 +108,8 @@ export const refreshAccessToken = async () => {
         let newRefreshToken = data.refresh_token
         if (!newAccessToken) {
             console.error("Invalid token response:", data)
+            handleLogout()
             return
-            // handleLogout();
         }
 
         if (!newRefreshToken && refreshToken) {

@@ -85,18 +85,15 @@ const Dashboard: React.FC = () => {
         const expiry = localStorage.getItem("expiry")
         if (Number(expiry) < Date.now()) {
             console.log("Access token expired, refreshing...")
-            refreshAccessToken()
-                .then(() => {
-                    const accessToken = localStorage.getItem("access_token")
-                    if (!accessToken) {
-                        console.error("Access token is missing after refresh")
-                        handleLogout()
-                        return
-                    }
-                })
-                .finally(() => {
-                    fetchAllData()
-                })
+            refreshAccessToken().then(() => {
+                const accessToken = localStorage.getItem("access_token")
+                if (!accessToken) {
+                    console.error("Access token is missing after refresh")
+                    handleLogout()
+                    return
+                }
+                fetchAllData()
+            })
         } else {
             fetchAllData()
         }
