@@ -13,7 +13,7 @@ const MainPage: React.FC = () => {
         if (isAuthenticated) {
             router.push("/dashboard")
         }
-    }, [router, isAuthenticated])
+    }, [router])
     return (
         <>
             <Head>

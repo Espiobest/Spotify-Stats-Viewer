@@ -28,7 +28,7 @@ const RecentTracks: React.FC<RecentTracksProps> = ({ recentTracks }) => {
             console.log("Not authenticated")
             router.push("/login")
         }
-    }, [])
+    }, [router])
 
     return (
         <div className="p-4 bg-gray-800">

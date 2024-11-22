@@ -100,7 +100,7 @@ const Dashboard: React.FC = () => {
         } else {
             fetchAllData()
         }
-    }, [])
+    })
 
     return (
         <div className="text-white">

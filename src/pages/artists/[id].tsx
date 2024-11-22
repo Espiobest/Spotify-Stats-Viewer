@@ -33,7 +33,7 @@ const ArtistPage: React.FC = () => {
         if (storedUserData) {
             setUserData(JSON.parse(storedUserData))
         }
-    }, [])
+    }, [router])
 
     useEffect(() => {
         const fetchArtistData = async () => {
