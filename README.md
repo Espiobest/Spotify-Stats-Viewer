@@ -12,7 +12,7 @@ A web application [(link)](https://spotify-stats-viewer.vercel.app/) that allows
 
 ## Tech Stack
 
-- **Frontend**: 
+- **Frontend**:
   - Next.js (React)
   - Tailwind CSS for styling
 - **API**: Spotify Web API (for fetching user data, tracks, and artists)
@@ -33,6 +33,7 @@ A web application [(link)](https://spotify-stats-viewer.vercel.app/) that allows
    ```
 
 3. Set up **Spotify API credentials**:
+
    - You need to create a Spotify Developer App and obtain a client ID and client secret from the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/applications).
    - Add the client ID and client secret to your environment variables (`.env.local`).
 

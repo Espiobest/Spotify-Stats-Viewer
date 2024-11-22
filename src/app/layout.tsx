@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   description: "A Spotify stats dashboard built with Next.js",
   icons: {
     icon: "favicon.ico",
-  }
+  },
 };
 
 export default function RootLayout({
