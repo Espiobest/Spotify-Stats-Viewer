@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import Image from "next/image"
 import { useRouter } from "next/router"
 import "../app/globals.css"
@@ -12,59 +12,67 @@ const Callback: React.FC = () => {
         console.error("Redirect URI not found in environment variables")
     }
 
-    if (!router.isReady) {
-        return
-    }
+    useEffect(() => {
+        if (!router.isReady) {
+            return
+        }
 
-    const { code } = router.query
-    if (!code) {
-        console.log("code not found")
-        router.push("/login")
-        return
-    }
+        const { code } = router.query
+        if (!code) {
+            console.log("code not found")
+            router.push("/login")
+            return
+        }
 
-    setTimeout(() => {
-        fetch("https://accounts.spotify.com/api/token", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-                Authorization: `Basic ${btoa(`${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`)}`,
-            },
-            body: new URLSearchParams({
-                grant_type: "authorization_code",
-                code: code as string,
-                redirect_uri: redirectUri as string,
-            }),
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                try {
-                    if (
-                        !data.access_token ||
-                        !data.refresh_token ||
-                        !data.expires_in
-                    ) {
-                        console.error("Invalid token response:", data)
+        setTimeout(() => {
+            fetch("https://accounts.spotify.com/api/token", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    Authorization: `Basic ${btoa(`${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`)}`,
+                },
+                body: new URLSearchParams({
+                    grant_type: "authorization_code",
+                    code: code as string,
+                    redirect_uri: redirectUri as string,
+                }),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    try {
+                        if (
+                            !data.access_token ||
+                            !data.refresh_token ||
+                            !data.expires_in
+                        ) {
+                            console.error("Invalid token response:", data)
+                            router.push("/login")
+                        }
+                        localStorage.setItem("access_token", data.access_token)
+                        localStorage.setItem(
+                            "expiry",
+                            (Date.now() + data.expires_in * 1000).toString()
+                        )
+                        localStorage.setItem(
+                            "refresh_token",
+                            data.refresh_token
+                        )
+                        router.push("/dashboard")
+                    } catch (error) {
+                        console.log(
+                            "Error saving token to local storage:",
+                            error
+                        )
                         router.push("/login")
                     }
-                    localStorage.setItem("access_token", data.access_token)
-                    localStorage.setItem(
-                        "expiry",
-                        (Date.now() + data.expires_in * 1000).toString()
-                    )
-                    localStorage.setItem("refresh_token", data.refresh_token)
-                    router.push("/dashboard")
-                } catch (error) {
-                    console.log("Error saving token to local storage:", error)
+                })
+                .catch((error) => {
+                    console.log("Error fetching token:", error)
                     router.push("/login")
-                }
-            })
-            .catch((error) => {
-                console.log("Error fetching token:", error)
-                router.push("/login")
-            })
-        setLoading(false)
-    }, 1500)
+                })
+            setLoading(false)
+        }, 1500)
+    }, [router])
 
     return loading ? (
         <div className="min-h-screen flex items-center justify-center">
