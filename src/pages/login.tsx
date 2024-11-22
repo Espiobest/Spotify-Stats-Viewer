@@ -23,10 +23,10 @@ const Login: NextPage = () => {
         const scopes = [
             "user-read-currently-playing",
             "user-read-recently-played",
-            "user-top-read",
             "user-library-read",
             "user-follow-read",
             "user-follow-modify",
+            "user-top-read",
         ]
         const authUrl = `https://accounts.spotify.com/authorize?response_type=code&client_id=${clientId}&scope=${scopes.join("%20")}&redirect_uri=${redirectUri}`
 
