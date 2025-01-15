@@ -36,7 +36,7 @@ const Login: NextPage = () => {
     return (
         <div className="flex flex-col items-center justify-center min-h-screen">
             <h1 className="text-5xl p-2 text-center font-bold mb-6">
-                Spotify Stats
+                Stats for Spotify
             </h1>
             <Lottie
                 className="w-1/2 lg:w-1/8 sm:w-1/4"
@@ -46,7 +46,7 @@ const Login: NextPage = () => {
             />
             <br></br>
             <h1 className="text-3xl p-2 text-center font-bold mb-6">
-                Explore Your Spotify Data
+                Explore Your Data
             </h1>
             <button
                 onClick={() => handleLogin()}

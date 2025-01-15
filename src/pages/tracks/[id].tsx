@@ -5,8 +5,8 @@ import Image from "next/image"
 
 import Navbar from "../../components/Navbar"
 import { fetchSpotifyData } from "../../services/spotifyService"
-import { formatTime, getKey } from "../../utils/utils"
-import { Track, Artist, UserProfile, TrackFeatures } from "../../types/spotify"
+import { formatTime } from "../../utils/utils"
+import { Track, Artist, UserProfile } from "../../types/spotify"
 
 import "../../app/globals.css"
 import Link from "next/link"
@@ -14,9 +14,9 @@ import Link from "next/link"
 const TrackPage: React.FC = () => {
     const router = useRouter()
     const [trackData, setTrackData] = useState<Track | null>(null)
-    const [trackFeatures, setTrackFeatures] = useState<TrackFeatures | null>(
-        null
-    )
+    // const [trackFeatures, setTrackFeatures] = useState<TrackFeatures | null>(
+    //     null
+    // )
     const [userData, setUserData] = useState<UserProfile | null>(null)
     const { id } = router.query
 
@@ -24,10 +24,10 @@ const TrackPage: React.FC = () => {
         const data = await fetchSpotifyData(`tracks/${id}`)
         setTrackData(data)
     }
-    const fetchTrackFeatures = async () => {
-        const data = await fetchSpotifyData(`audio-features/${id}`)
-        setTrackFeatures(data)
-    }
+    // const fetchTrackFeatures = async () => {
+    //     const data = await fetchSpotifyData(`audio-features/${id}`)
+    //     setTrackFeatures(data)
+    // }
 
     useEffect(() => {
         const isAuthenticated = !!localStorage.getItem("access_token")
@@ -44,7 +44,7 @@ const TrackPage: React.FC = () => {
     useEffect(() => {
         if (id) {
             fetchTrackData()
-            fetchTrackFeatures()
+            // fetchTrackFeatures()
         }
     }, [id])
 
@@ -52,7 +52,7 @@ const TrackPage: React.FC = () => {
         <div className="p-4" style={{ backgroundColor: "#121212" }}>
             {userData && <Navbar userData={userData}></Navbar>}
             <div>
-                {trackData && trackFeatures && (
+                {trackData && (
                     <div className="p-4" style={{ backgroundColor: "#121212" }}>
                         <div className="flex items-center mb-4 flex-col sm:flex-row">
                             <Image
@@ -97,7 +97,7 @@ const TrackPage: React.FC = () => {
                                 </button>
                             </div>
                         </div>
-                        <div className="mb-4">
+                        {/* <div className="mb-4">
                             <h2 className="text-2xl font-bold text-white mb-2">
                                 Audio Features
                             </h2>
@@ -157,7 +157,7 @@ const TrackPage: React.FC = () => {
                                     </p>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 )}
             </div>
