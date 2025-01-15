@@ -1,6 +1,6 @@
 # Spotify Stats Viewer
 
-A web application [(link)](https://spotify-stats-viewer.vercel.app/) that allows users to view their Spotify profile, top tracks, top artists, and currently playing track. Built with Next.js and Tailwind CSS, the app fetches user data from the Spotify API and displays it in a responsive, modern interface. I built this to practice React and TypeScript.
+A web application [(link)](https://stats-viewer.vercel.app/) that allows users to view their Spotify profile, top tracks, top artists, and currently playing track. Built with Next.js and Tailwind CSS, the app fetches user data from the Spotify API and displays it in a responsive, modern interface. I built this to practice React and TypeScript.
 
 ## Features
 
