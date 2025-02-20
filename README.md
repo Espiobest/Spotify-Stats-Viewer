@@ -57,6 +57,10 @@ A web application [(link)](https://stats-viewer.vercel.app/) that allows users t
 
 Feel free to fork the repo, open issues, and submit pull requests! Contributions are welcome.
 
+## Example Images
+![Demo](demo.png)
+![Artists](artists.png)
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
